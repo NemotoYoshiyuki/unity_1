@@ -1,0 +1,118 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &128366
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 413084}
+  - 114: {fileID: 11451586}
+  - 114: {fileID: 11430280}
+  - 114: {fileID: 11400684}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &413084
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 128366}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11400684
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 128366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 255e878ac084dba448fe81dbb66ab245, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dmgSprite: {fileID: 0}
+  hp: 3
+--- !u!114 &11430280
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 128366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 022a97e082d6e7f48ae6444b70583016, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boardScript: {fileID: 0}
+  playerFoodPoints: 100
+  playersTurn: 1
+--- !u!114 &11451586
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 128366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 924d8b342e6e6764c9b9ee516b1613e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  columns: 8
+  rows: 8
+  wallCount:
+    minimum: 5
+    maximum: 9
+  foodCount:
+    minimum: 1
+    maximum: 5
+  exit: {fileID: 117018, guid: 96aeed757e3060242b7e6e9b8cc6537c, type: 2}
+  floorTiles:
+  - {fileID: 110608, guid: 7887ec6050a83c049b67b18cb8d8fcb2, type: 2}
+  - {fileID: 125576, guid: 99be7190309d5d545bf15177ccda1754, type: 2}
+  - {fileID: 185758, guid: 5754f8539e46fd84f88f3ca45fe94396, type: 2}
+  - {fileID: 171010, guid: b6aec28346a27154bb4d45c6ed71a00c, type: 2}
+  - {fileID: 151972, guid: 517f5935f8b84314d96aa74110befe4d, type: 2}
+  - {fileID: 146414, guid: 546af766fbccc65428a47d904c935119, type: 2}
+  - {fileID: 149522, guid: c27e037f1192f9149988e0a36a96389d, type: 2}
+  - {fileID: 164900, guid: e5bf228fa951c614eb9624b48408d623, type: 2}
+  waillTiles:
+  - {fileID: 149950, guid: d2e64730c082f444eaae8fd962251427, type: 2}
+  - {fileID: 132248, guid: bafe94f058b192d4c9abbb192d7239f3, type: 2}
+  - {fileID: 108890, guid: 6fb85b33385f8c44888ef30dfbdb04fe, type: 2}
+  - {fileID: 137202, guid: 21836294d63420749a189ec8261c08e6, type: 2}
+  - {fileID: 106278, guid: 74f5ef16457c48445baa874d17a14fb8, type: 2}
+  - {fileID: 155326, guid: 2e9cc4db1b2834c4684d95310ee6a4a4, type: 2}
+  - {fileID: 115766, guid: 85036bec349e43b4f848bdde32424bd3, type: 2}
+  - {fileID: 151374, guid: e85dcdef8af83e846b14b9ad272d2fdb, type: 2}
+  foodTiles:
+  - {fileID: 110764, guid: d2a59cc3aba11ad4f8d17c4a8b0a6667, type: 2}
+  - {fileID: 137136, guid: d9fe63e4de99c364d8be972b1ca7d884, type: 2}
+  enemyTiles:
+  - {fileID: 167196, guid: 534073f2799f3f04da628a5f7a56b275, type: 2}
+  - {fileID: 127846, guid: ba32754343007244dabcfc3fff2e15d5, type: 2}
+  outerWallTiles:
+  - {fileID: 129948, guid: c717997615043a34d8561ffb23a94e6d, type: 2}
+  - {fileID: 131964, guid: 433e0248bb095594495074ad741d73a2, type: 2}
+  - {fileID: 109956, guid: 51587229e0be1b2479b38b39d74ec629, type: 2}
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 128366}
+  m_IsPrefabParent: 1
