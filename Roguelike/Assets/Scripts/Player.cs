@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 //MovingObjectクラスを継承する
 public class Player : MovingObject {
 	
@@ -7,8 +8,18 @@ public class Player : MovingObject {
 	public int pointsPerFood = 10; //フードの回復量
 	public int pointsPerSoda = 20; //ソーダの回復量
 	public float restartlevelDelay = 1f; //次レベルへ行く時の時間差
-	
-	private Animator animator; //PlayerChop, PlayerHit用
+    public Text foodText;//FoodText
+
+    //各効果音を指定
+    public AudioClip moveSound1;
+    public AudioClip moveSound2;
+    public AudioClip eatSound1;
+    public AudioClip eatSound2;
+    public AudioClip drinkSound1;
+    public AudioClip drinkSound2;
+    public AudioClip gameOverSound;
+
+    private Animator animator; //PlayerChop, PlayerHit用
 	private int food; //プレイヤーの体力
 
 	//MovingObjectのStartメソッドを継承　baseで呼び出し
@@ -18,6 +29,7 @@ public class Player : MovingObject {
 		//シングルトンであるGameManagerのplayerFoodPointsを使うことに
 		//よって、レベルを跨いでも値を保持しておける
 		food = GameManager.instance.playerFoodPoints;
+        foodText.text = "Food" + food;
 		//MovingObjectのStartメソッド呼び出し
 		base.Start();
 	}
@@ -55,11 +67,18 @@ public class Player : MovingObject {
 	{
 		//移動1回につき1ポイント失う
 		food--;
+        foodText.text = "Food" + food;
 		//MovingObjectのAttemptMove呼び出し
 		base.AttemptMove <T> (xDir, yDir);
 		
 		RaycastHit2D hit;
-		
+
+        //移動可能である時、MoveSound1かmoveSound2どちらかを鳴らす
+        if (Move(xDir,yDir, out hit))
+        {
+            SoundManager.instance.RandomizeSfx(moveSound1,moveSound2);
+        }
+
 		CheckIfGameOver();
 		//プレイヤーの順番終了
 		GameManager.instance.playersTurn = false;
@@ -85,11 +104,17 @@ public class Player : MovingObject {
 		} else if (other.tag == "Food") {
 			//体力を回復しotherオブジェクトを削除
 			food += pointsPerFood;
-			other.gameObject.SetActive(false);
+            foodText.text = "+" + pointsPerFood + "Food:" + food;
+            //Foodをとった時、eatSound1かeatSound2を鳴らす
+            SoundManager.instance.RandomizeSfx(eatSound1, eatSound2);
+            other.gameObject.SetActive(false);
 		} else if (other.tag == "Soda") {
 			//体力を回復しotherオブジェクトを削除
 			food += pointsPerSoda;
-			other.gameObject.SetActive(false);
+            foodText.text = "+" + pointsPerSoda + "Food" + food;
+            //Sodaを取った時、drinkSound1かdrinkSound2を鳴らす
+            SoundManager.instance.RandomizeSfx(drinkSound1, drinkSound2);
+            other.gameObject.SetActive(false);
 		}
 	}
 	
@@ -103,12 +128,17 @@ public class Player : MovingObject {
 	{
 		animator.SetTrigger("PlayerHit");
 		food -= loss;
+        foodText.text = "-" + loss + "Food:" + food;
 		CheckIfGameOver();
 	}
 	
 	private void CheckIfGameOver ()
 	{
 		if (food <= 0) {
+            //gameOverSoundを鳴らす
+            SoundManager.instance.PlaySingle(gameOverSound);
+            //BGMは停止する
+            SoundManager.instance.musicSource.Stop();
 			//GameManagerのGameOverメソッド実行
 			//public staticな変数なのでこのような簡単な形でメソッドを呼び出せる
 			GameManager.instance.GameOver();

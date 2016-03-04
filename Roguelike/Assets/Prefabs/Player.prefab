@@ -92,11 +92,19 @@ MonoBehaviour:
   moveTime: .100000001
   blockingLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   wallDamage: 1
   pointsPerFood: 10
   pointsPerSoda: 20
   restartlevelDelay: 1
+  foodText: {fileID: 0}
+  moveSound1: {fileID: 8300000, guid: 892962212a4b74d1c9f578a3b6ea6439, type: 3}
+  moveSound2: {fileID: 8300000, guid: a826bc3d758db43d6ae9caf415b63d1d, type: 3}
+  eatSound1: {fileID: 8300000, guid: 1cb61f83d60374c7389bb547431919e3, type: 3}
+  eatSound2: {fileID: 8300000, guid: 062161c1897a54088a5430f8c197e1b8, type: 3}
+  drinkSound1: {fileID: 8300000, guid: b6b608537288246c9a464915db27bf52, type: 3}
+  drinkSound2: {fileID: 8300000, guid: bcb9dda73ee914d3e8f252895f73f461, type: 3}
+  gameOverSound: {fileID: 8300000, guid: e2beefeb2273f4efe992adf5b8d67c29, type: 3}
 --- !u!212 &21293488
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -129,7 +137,52 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: moveSound1
+      value: 
+      objectReference: {fileID: 8300000, guid: 892962212a4b74d1c9f578a3b6ea6439, type: 3}
+    - target: {fileID: 0}
+      propertyPath: moveSound2
+      value: 
+      objectReference: {fileID: 8300000, guid: a826bc3d758db43d6ae9caf415b63d1d, type: 3}
+    - target: {fileID: 0}
+      propertyPath: eatSound1
+      value: 
+      objectReference: {fileID: 8300000, guid: 1cb61f83d60374c7389bb547431919e3, type: 3}
+    - target: {fileID: 0}
+      propertyPath: eatSound2
+      value: 
+      objectReference: {fileID: 8300000, guid: 062161c1897a54088a5430f8c197e1b8, type: 3}
+    - target: {fileID: 0}
+      propertyPath: drinkSound1
+      value: 
+      objectReference: {fileID: 8300000, guid: b6b608537288246c9a464915db27bf52, type: 3}
+    - target: {fileID: 0}
+      propertyPath: drinkSound2
+      value: 
+      objectReference: {fileID: 8300000, guid: bcb9dda73ee914d3e8f252895f73f461, type: 3}
+    - target: {fileID: 0}
+      propertyPath: gameOverSound
+      value: 
+      objectReference: {fileID: 8300000, guid: e2beefeb2273f4efe992adf5b8d67c29, type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_UsedByEffector
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalPosition.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: foodText
+      value: 
+      objectReference: {fileID: 11412192, guid: 07092d564aa43fd409d3eeb81cab6de9,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 184456}

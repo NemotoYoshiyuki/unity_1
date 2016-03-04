@@ -11,6 +11,10 @@ public class Enemy : MovingObject
     private Transform target;//プレイヤーの位置情報
     private bool skipMove;//敵キャラが動くかどうかの判定
 
+    //攻撃用の効果音を指定
+    public AudioClip enemyAttack1;
+    public AudioClip enemyAttack2;
+
     //MovingObjectのStartメソッドを継承
     protected override void Start()
     {
@@ -51,7 +55,7 @@ public class Enemy : MovingObject
         else
         {
             //プレイヤーが右にいれば＋１、左にいればー１する
-            yDir = target.position.x > transform.position.x ? 1 : -1;
+            xDir = target.position.x > transform.position.x ? 1 : -1;
         }
         //ジェネリック機能　攻撃対象はPlayerのみなので、型引数はPlayer
         AttemptMove<Player>(xDir, yDir);
@@ -65,7 +69,8 @@ public class Enemy : MovingObject
         animator.SetTrigger("enemyAttack");//攻撃アニメーションの実行
         //PlayerクラスのLoseFoodメソッドを呼び出す　引数はダメージ量
         hitPlayer.LoseFood(playerDamage);
-        throw new NotImplementedException();
+        //攻撃用効果音をSoundManagerに渡し、ランダムで再生
+        SoundManager.instance.RandomizeSfx(enemyAttack1, enemyAttack2);
     }
     
 }
