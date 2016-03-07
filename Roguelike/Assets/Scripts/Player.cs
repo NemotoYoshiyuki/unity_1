@@ -9,6 +9,7 @@ public class Player : MovingObject {
 	public int pointsPerSoda = 20; //ソーダの回復量
 	public float restartlevelDelay = 1f; //次レベルへ行く時の時間差
     public Text foodText;//FoodText
+    public Text msText;
 
     //各効果音を指定
     public AudioClip moveSound1;
@@ -21,15 +22,17 @@ public class Player : MovingObject {
 
     private Animator animator; //PlayerChop, PlayerHit用
 	private int food; //プレイヤーの体力
+    public int power;//プレイヤーの攻撃力
 
-	//MovingObjectのStartメソッドを継承　baseで呼び出し
-	protected override void Start () {
+    //MovingObjectのStartメソッドを継承　baseで呼び出し
+    protected override void Start () {
 		//Animatorをキャッシュしておく
 		animator = GetComponent<Animator>();
 		//シングルトンであるGameManagerのplayerFoodPointsを使うことに
 		//よって、レベルを跨いでも値を保持しておける
 		food = GameManager.instance.playerFoodPoints;
         foodText.text = "Food" + food;
+        
 		//MovingObjectのStartメソッド呼び出し
 		base.Start();
 	}
@@ -97,7 +100,9 @@ public class Player : MovingObject {
 	
 	private void OnTriggerEnter2D (Collider2D other)
 	{
+        msText.gameObject.SetActive(true);
 		if (other.tag == "Exit") {
+            msText.gameObject.SetActive(false);
 			//Invoke: 引数分遅れてメソッドを実行する
 			Invoke ("Restart", restartlevelDelay);
 			enabled = false; //Playerを無効にする
@@ -105,6 +110,8 @@ public class Player : MovingObject {
 			//体力を回復しotherオブジェクトを削除
 			food += pointsPerFood;
             foodText.text = "+" + pointsPerFood + "Food:" + food;
+            msText.text = "体力が" + pointsPerFood + "回復した";
+            Invoke("Hide", 1);//1秒後にメソッド呼び出し
             //Foodをとった時、eatSound1かeatSound2を鳴らす
             SoundManager.instance.RandomizeSfx(eatSound1, eatSound2);
             other.gameObject.SetActive(false);
@@ -112,24 +119,39 @@ public class Player : MovingObject {
 			//体力を回復しotherオブジェクトを削除
 			food += pointsPerSoda;
             foodText.text = "+" + pointsPerSoda + "Food" + food;
+            msText.text = "体力が" + pointsPerSoda + "回復した";
+            Invoke("Hide",1);//1秒後にメソッド呼び出し
+
             //Sodaを取った時、drinkSound1かdrinkSound2を鳴らす
             SoundManager.instance.RandomizeSfx(drinkSound1, drinkSound2);
             other.gameObject.SetActive(false);
 		}
 	}
+
+    public void Hide()
+    {
+        msText.gameObject.SetActive(false);//メッセージを消す
+    }
 	
 	private void Restart ()
 	{
 		//同じシーンを読み込む
 		Application.LoadLevel(Application.loadedLevel);
 	}
+
+    //プレイヤーが敵を攻撃した時のメソッド//動かない
+    
+
 	//敵キャラがプレイヤーを攻撃した時のメソッド
-	public void LoseFood (int loss)
+	public void LoseFood (int loss,string enemyName)
 	{
+        msText.gameObject.SetActive(true);
 		animator.SetTrigger("PlayerHit");
 		food -= loss;
         foodText.text = "-" + loss + "Food:" + food;
-		CheckIfGameOver();
+        msText.text = enemyName + "から" + loss + "ダメージ受けた";
+        Invoke("Hide", 1);//1秒後にメソッド呼び出し
+        CheckIfGameOver();
 	}
 	
 	private void CheckIfGameOver ()

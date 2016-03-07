@@ -5,7 +5,9 @@ using System;
 public class Enemy : MovingObject
 {
 
+    public int enemyHp;//Enemyの体力
     public int playerDamage;//プレイヤーへのダメージ量
+    public string enemyName;//Enemyの名前
 
     private Animator animator;
     private Transform target;//プレイヤーの位置情報
@@ -68,7 +70,7 @@ public class Enemy : MovingObject
         Player hitPlayer = component as Player;
         animator.SetTrigger("enemyAttack");//攻撃アニメーションの実行
         //PlayerクラスのLoseFoodメソッドを呼び出す　引数はダメージ量
-        hitPlayer.LoseFood(playerDamage);
+        hitPlayer.LoseFood(playerDamage,enemyName);
         //攻撃用効果音をSoundManagerに渡し、ランダムで再生
         SoundManager.instance.RandomizeSfx(enemyAttack1, enemyAttack2);
     }
