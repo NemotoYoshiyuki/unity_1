@@ -72,8 +72,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 924d8b342e6e6764c9b9ee516b1613e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  columns: 12
-  rows: 12
+  columns: 6
+  rows: 6
   wallCount:
     minimum: 5
     maximum: 9
@@ -105,6 +105,7 @@ MonoBehaviour:
   enemyTiles:
   - {fileID: 167196, guid: 534073f2799f3f04da628a5f7a56b275, type: 2}
   - {fileID: 127846, guid: ba32754343007244dabcfc3fff2e15d5, type: 2}
+  - {fileID: 171022, guid: f4271b02b920f2d42b40433606e30c89, type: 2}
   outerWallTiles:
   - {fileID: 129948, guid: c717997615043a34d8561ffb23a94e6d, type: 2}
   - {fileID: 131964, guid: 433e0248bb095594495074ad741d73a2, type: 2}
@@ -117,12 +118,16 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 0}
+      propertyPath: enemyTiles.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
       propertyPath: columns
-      value: 12
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: rows
-      value: 12
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
