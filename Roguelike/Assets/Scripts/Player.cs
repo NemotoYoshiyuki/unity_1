@@ -9,7 +9,8 @@ public class Player : MovingObject {
 	public int pointsPerSoda = 20; //ソーダの回復量
 	public float restartlevelDelay = 1f; //次レベルへ行く時の時間差
     public Text foodText;//FoodText
-    public Text msText;
+    public GameObject msw;//メッセージウィンドウ用
+    public Text msText;//メッセージウィンドウのテキストを書き換える
 
     //各効果音を指定
     public AudioClip moveSound1;
@@ -32,6 +33,8 @@ public class Player : MovingObject {
 		//よって、レベルを跨いでも値を保持しておける
 		food = GameManager.instance.playerFoodPoints;
         foodText.text = "Food" + food;
+        msw = GameObject.Find("msw");//ヒエラルキーからmswを所得
+        Hide();//ウィンドウを非表示にする
         
 		//MovingObjectのStartメソッド呼び出し
 		base.Start();
@@ -100,9 +103,10 @@ public class Player : MovingObject {
 	
 	private void OnTriggerEnter2D (Collider2D other)
 	{
-        msText.gameObject.SetActive(true);
+        //mswを表示
+        msw.gameObject.SetActive(true);      
 		if (other.tag == "Exit") {
-            msText.gameObject.SetActive(false);
+            msw.gameObject.SetActive(false);
 			//Invoke: 引数分遅れてメソッドを実行する
 			Invoke ("Restart", restartlevelDelay);
 			enabled = false; //Playerを無効にする
@@ -130,7 +134,8 @@ public class Player : MovingObject {
 
     public void Hide()
     {
-        msText.gameObject.SetActive(false);//メッセージを消す
+
+        msw.gameObject.SetActive(false);
     }
 	
 	private void Restart ()
@@ -145,7 +150,7 @@ public class Player : MovingObject {
 	//敵キャラがプレイヤーを攻撃した時のメソッド
 	public void LoseFood (int loss,string enemyName)
 	{
-        msText.gameObject.SetActive(true);
+        msw.gameObject.SetActive(true);
 		animator.SetTrigger("PlayerHit");
 		food -= loss;
         foodText.text = "-" + loss + "Food:" + food;
